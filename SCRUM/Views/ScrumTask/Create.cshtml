@@ -1,0 +1,56 @@
+﻿@model SCRUM.Models.Task
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".managedDate").hide();
+        if (localStorage.getItem("SelectedItem")) {
+            $(".dropdown-toggle").val(localStorage.getItem("SelectedItem"))
+        }
+
+        $(".dropdown-toggle").change(function () {
+            localStorage.setItem("SelectedItem", $(this).val());
+            var item = localStorage.getItem("SelectedItem");
+        });
+
+        $(".currentDate").click(function () {
+            if ($(this).is(':checked')) {
+                $(".managedDate").hide();
+            }
+            else
+                $(".managedDate").show();
+        })
+    })
+</script>
+
+@using (Html.BeginForm())
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Scrum day log</h3>
+        </div>
+        <div class="panel-body">
+            <b>Zapisz z dzisiejszą datą</b>
+            @Html.CheckBox("currentDate", true, new { @class = "currentDate" } )
+            @Html.TextBox("managedDate","dd.mm.yyyy", new {@class = "managedDate", @type = "date" })
+            <br/>
+            <b class="textBox">Autor:</b><br />
+            @Html.DropDownListFor(model => model.WhoMadePost, new SelectList(new List<object> {
+            new { value = "Kuba", text = "Kuba" },
+            new { value = "Piotr", text = "Piotr" },
+            new { value = "Michał", text = "Michał" },
+            new { value = "Błażej", text = "Błażej" },
+            new { value = "Hubert", text = "Hubert" }}, "value", "text", 2), new { @class = "btn btn-default dropdown-toggle" })
+            <br /><b class="textBox">Co zrobiłem?</b><br />
+            @Html.TextAreaFor(model => model.WhatIHaveDone, new { @class = "form-group, form-control" })
+            <br />
+            <b class="textBox">Co będę robił?</b><br />
+            @Html.TextAreaFor(model => model.WhatIWillDo, new { @class = "form-group, form-control" })
+            <br />
+            <b class="textBox">Jakie miałem problemy?</b><br />
+            @Html.TextAreaFor(model => model.WhatProblemsIgot, new { @class = "form-group, form-control" })
+            <br />
+            <input type="submit" class="btn btn-primary" value="Zapisz" />
+        </div>
+    </div>
+}
+<br />

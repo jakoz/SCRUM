@@ -1,0 +1,57 @@
+﻿@model List<SCRUM.Models.Task>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#buttonAddNewTask').click(function () {
+            $.ajax({
+                type: "GET",
+                url: "Create"
+            }).success(function (result) {
+                $("#mainContent").html(result);
+            })
+        })
+
+        $(".list-group-item").click(function () {
+            id = $(this).attr("id");
+            $(".list-group-item").removeClass("active");
+            $(this).addClass("active");
+
+            $.ajax({
+                type: "GET",
+                url: "Get",
+                data: { id: id }
+            }).success(function (result) {
+                $("#mainContent").html(result);
+            });
+        })
+    });
+</script>
+<div class="container">
+
+    <div id="mainPage">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"> <h3 class="panel-title">Days of meeting</h3> </div> <div class="panel-body">
+                        <div class="list-group">
+                            @if (Model != null)
+                            {
+                                foreach (var taskGroup in Model.GroupBy(x => x.DateOfPost))
+                                {
+                                    <span>@taskGroup.Key</span>
+                                    foreach (var task in taskGroup)
+                                    {
+                                        <a href="#" class="list-group-item" id="@task.ID">@task.WhoMadePost</a>
+                                    }
+                                }
+                            }
+                        </div>
+                        <input type="button" id="buttonAddNewTask" class="btn btn-primary btn-primary" value="Dodaj" />
+                    </div>
+                </div>
+            </div>
+            <div id="mainContent" class="col-md-8">
+            </div>
+        </div>
+    </div>
+</div>

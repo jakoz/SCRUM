@@ -1,0 +1,44 @@
+﻿<head>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+</head>
+
+@model SCRUM.Models.Task
+
+<script type="text/javascript">
+    
+    window.onload = function () {
+        function loadUserTask(task) { //Nie wchodzi do tej funkcji, ktora ma za zadanie przypisac i wyswietlic SMR danego rekordu
+            alert("jestem")
+        }
+
+    }
+</script>
+<div style="float:left" class="block">
+    @using (Html.BeginForm())
+    {
+        <br />
+        <b>Autor:</b><br/>
+        @Html.TextBoxFor(model => model.whoMadePost)
+        <b>Co zrobiłem?</b><br/>
+        @Html.TextAreaFor(model => model.whatIhaveDone, new { @class = "postArea" })
+        <br/>
+        <b>Co będę robił?</b><br/>
+        @Html.TextAreaFor(model => model.whatIwillDo, new { @class = "postArea" })
+        <br/>
+        <b>Jakie miałem problemy?</b><br/>
+        @Html.TextAreaFor(model => model.whatProblemsIgot, new { @class = "postArea" })
+        <input type="submit" value="+"/>
+    }
+    <br/>
+    
+    <p class="listOfTasks" onClick="loadUserTask(@ViewBag.temp)">@ViewBag.temp.whoMadePost @ViewBag.temp.dateOfPost </p>
+    
+</div>
+<div style="float:left" class="block">
+    <textarea style="visibility:hidden" id="whoMadePost"></textarea>
+    <textarea style="visibility:hidden" id="whatIhaveDone"></textarea>
+    <textarea style="visibility:hidden" id="whatIwillDo"></textarea>
+    <textarea style="visibility:hidden" id="whatProblemsIgot"></textarea>
+</div>
+<div style="clear:both"></div>
+

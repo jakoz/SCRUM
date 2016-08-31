@@ -1,0 +1,18 @@
+﻿@model SCRUM.Models.Task
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Scrum day log</h3>
+    </div>
+    <div class="panel-body">
+        <form>
+            @Html.TextBoxFor(model => model.WhoMadePost, new { @class = "form-group, form-control", @readonly = "readonly" })
+            <br /><b class="textBox">Co zrobiłem?</b><br />
+            @Html.TextAreaFor(model => model.WhatIHaveDone, new { @class = "form-group, form-control", @readonly = "readonly", @resize = "none" })
+            <br /><b class="textBox">Co będę robił?</b><br />
+            @Html.TextAreaFor(model => model.WhatIWillDo, new { @class = "form-group, form-control", @readonly = "readonly", @resize = "none" })
+            <br /><b class="textBox">Jakie napotkałem problemy?</b><br />
+            @Html.TextAreaFor(model => model.WhatProblemsIgot, new { @class = "form-group, form-control", @readonly = "readonly", @resize = "none" })
+            <br />
+        </form>
+    </div>
+</div> 
